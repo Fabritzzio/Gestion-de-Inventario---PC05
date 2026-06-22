@@ -14,7 +14,7 @@ class Container {
     size_t capacidad;
 
     public:
-    Container() : size(0), capacidad(50) {
+    Container() : size(0), capacidad(100) {
         elementos = new T[capacidad];
     }
 
@@ -35,20 +35,46 @@ class Container {
             cout << elementos[i];
         }
     }
+    void eliminarElemento(const string& codigo, size_t cantidad) {
+        for (size_t i = 0; i < size; ++i) {
+            if (elementos[i].getCodigo() == codigo) {
+                if (elementos[i].getStock() >= cantidad) {
+                    elementos[i] -= Producto("", "", 0, cantidad);
+                    cout << "Venta realizada...Stock actualizado: " << elementos[i].getStock() << endl;
+                } else {
+                    cout << "Stock insuficiente..." << endl;
+                }
+                return;
+            }
+        }
+        cout << "Producto no encontrado. Intente nuevamente." << endl;
+    }
 
- 
+    void AumentarStock(const string& codigo, size_t cantidad) {
+        for (size_t i = 0; i < size; ++i) {
+            if (elementos[i].getCodigo() == codigo) {
+                elementos[i] += Producto("", "", 0, cantidad);
+                cout << "Stock aumentado...Stock actualizado: " << elementos[i].getStock() << endl;
+                return;
+            }
+        }
+        cout << "Producto no encontrado.Intente nuevamente." << endl;
+    }
 
     size_t getCantidad() const {
         return size;
     }
+
 } ;
 
 void PrintMenu( ) {
-        cout << "------------Menu--------------" << endl;
+        cout << "\n------------Menu--------------" << endl;
         cout << "1. Agregar Producto" << endl;
         cout << "2. Mostrar Productos disponibles" << endl;
-        cout << "3. Salir" << endl;
-    } 
+        cout << "3. Venta del Producto" << endl;
+        cout << "4. Aumentar Stock del Producto" << endl;
+        cout << "5. Salir" << endl;
+    }     
 
 
 

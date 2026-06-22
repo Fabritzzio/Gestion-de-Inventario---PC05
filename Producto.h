@@ -1,6 +1,7 @@
 #include <iostream>
 #include "types.h"
 #include <string>
+#include <cstddef>
 using namespace std;
 
 class Producto {
@@ -8,12 +9,12 @@ class Producto {
     string nombre;
     string codigo;
     T1 precio;
-    T0 stock;
+    size_t stock;
 
     public:
 
    Producto() : nombre(""), codigo(""), precio(0), stock(0) {}
-   Producto(string nombre, string codigo, T1 precio, T0 stock) : nombre(nombre), codigo(codigo), precio(precio), stock(stock) {}
+   Producto(string nombre, string codigo, T1 precio, size_t stock) : nombre(nombre), codigo(codigo), precio(precio), stock(stock) {}
 
    Producto operator+= (const Producto& otro) {
         precio += otro.precio;
@@ -40,13 +41,23 @@ class Producto {
     }
 
 friend std::ostream& operator<<(std::ostream& os, const Producto& producto) {
-    os << "[" << producto.nombre << ","
-       << producto.codigo << ","
-       <<"S/."<< producto.precio <<","
-       << producto.stock << "]" << endl ;
+    os << "[ " << producto.nombre << " | "
+       << producto.codigo << " | "
+       <<"S/."<< producto.precio <<" | "
+       << producto.stock << " ]" << endl ;
 
     return os;
 
-}    
+}  
+    size_t getStock() const {
+        return stock;
+    }
+    string getCodigo() const {
+          return codigo;
+     }
+    
+    T1 getPrecio() const {
+        return precio;
+    }
 
 } ;
